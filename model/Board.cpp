@@ -79,6 +79,30 @@ int Board::checkBoard()
     return full_rows;
 }
 
+int Board::getShortestDistanceUnderPosition(const std::array<Config::Position, 4>& positions)
+{
+    int res = Config::BOARD_HEIGHT;
+
+    for (const auto& position : positions)
+    {
+        int distance = Config::BOARD_HEIGHT - position.y - 1;
+
+        for (int row = position.y + 1; row < Config::BOARD_HEIGHT; ++row)
+        {
+            if (table_[row][position.x].isFilled())
+            {
+                distance = row - position.y - 1;
+                break;
+            }
+        }
+
+        res = std::min(res, distance);
+    }
+
+    return res;
+}
+
+
 std::array<std::array<Cell, Config::BOARD_WIDTH>, Config::BOARD_HEIGHT> Board::getTable() const
 {
     return table_;
