@@ -47,4 +47,36 @@ void MainModel::lockTetramino()
     }
 }
 
+MainModel::MainModel() : current_tetramino_(getRandomTetraminoStrategy()),
+      is_game_over_(false),
+      score_(0)
+{
+    board_ = Board();
+}
 
+Config::DisplayBoard MainModel::getDisplayBoard() const
+{
+    Config::DisplayBoard display_board{};
+
+    for (int row = 0; row < Config::BOARD_HEIGHT; ++row)
+    {
+        for (int column = 0; column < Config::BOARD_WIDTH; ++column)
+        {
+            display_board[row][column].color = board_.getCell(row, column).getColor();
+            
+        }
+    }
+
+    const auto positions = current_tetramino_.getPositions();
+
+    for (const Config::Position& pos : positions)
+    {
+        if (board_.isInside(pos.y, pos.x))
+        {
+            display_board[pos.y][pos.x].color =
+                filled_state_current_tetramino_->getColor();
+        }
+    }
+
+    return display_board;
+}
