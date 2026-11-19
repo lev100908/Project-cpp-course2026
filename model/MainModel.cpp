@@ -80,3 +80,26 @@ Config::DisplayBoard MainModel::getDisplayBoard() const
 
     return display_board;
 }
+
+void MainModel::moveLeft()
+{
+    current_tetramino_.move(Config::SPEED_LEFT, 0);
+    if (!checkExistThisPos(current_tetramino_.getPositions())) {current_tetramino_.move(-Config::SPEED_LEFT, 0);}
+}
+
+void MainModel::moveRight()
+{
+    current_tetramino_.move(Config::SPEED_RIGHT, 0);
+    if (!checkExistThisPos(current_tetramino_.getPositions())) {current_tetramino_.move(-Config::SPEED_RIGHT, 0);}
+}
+
+void MainModel::moveFastDown()
+{
+    current_tetramino_.move(0, board_.getShortestDistanceUnderPosition(current_tetramino_.getPositions()));
+}
+
+void MainModel::rotate()
+{
+    current_tetramino_.rotate();
+    if (!checkExistThisPos(current_tetramino_.getPositions())) {current_tetramino_.rotateBack();}
+}
