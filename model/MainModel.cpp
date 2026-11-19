@@ -103,3 +103,35 @@ void MainModel::rotate()
     current_tetramino_.rotate();
     if (!checkExistThisPos(current_tetramino_.getPositions())) {current_tetramino_.rotateBack();}
 }
+
+void MainModel::update()
+{
+    if (is_game_over_)
+        return;
+
+    if (canFall())
+    {
+        current_tetramino_.move(0, Config::SPEED_DOWN);
+    }
+    else
+    {
+        lockTetramino();
+
+        score_ += board_.checkBoard();
+
+        current_tetramino_.setStrategy(getRandomTetraminoStrategy());
+
+        if (!checkExistThisPos(current_tetramino_.getPositions()))
+            is_game_over_ = true;
+    }
+}
+
+bool MainModel::isGameOver() 
+{
+    return is_game_over_;
+}
+
+int MainModel::score()
+{
+    return score_;
+}
