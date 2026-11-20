@@ -18,7 +18,6 @@ public:
 
     bool isInside(int row, int column) const;
 
-    bool checkRow(int row);
     int checkBoard();
 
     int getShortestDistanceUnderPosition(const std::array<Config::Position, 4>& positions);

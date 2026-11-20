@@ -27,20 +27,6 @@ bool Board::isInside(int row, int column) const
            column < Config::BOARD_WIDTH;
 }
 
-bool Board::checkRow(int row)
-{
-    bool res = true;
-    for (int column = 0; column < Config::BOARD_WIDTH; ++column)
-    {
-        if (!table_[row][column].isFilled())
-        {
-            res = false;
-            break;
-        }
-    }
-    return res;
-}
-
 int Board::checkBoard()
 {
     int full_rows = 0;
